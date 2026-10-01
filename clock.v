@@ -8,7 +8,7 @@ begin
 if(contador==limite)
 begin
 contador<=0;
-fou t<= ~fout;
+fout<= ~fout;
 end
 else
 contador<=contador+1;
