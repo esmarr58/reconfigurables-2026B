@@ -1,6 +1,6 @@
 // =====================================================================
 //  detector_flanco.v  --  Detector de flanco de subida (pulso unico)
-//  Sistemas Reconfigurables (V3737) - 2026B - Practica 3
+//  Sistemas Reconfigurables (V3737) - 2026B - Practica 2
 //
 //  Recuerda el valor del ciclo anterior ('previo') y genera 'pulso' = 1
 //  durante UN solo ciclo cuando la entrada pasa de 0 a 1:

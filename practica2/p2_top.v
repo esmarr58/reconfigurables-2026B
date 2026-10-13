@@ -1,5 +1,5 @@
 // =====================================================================
-//  p3_top.v  --  Practica 3: reloj/temporizador 000..999 con 4 entradas
+//  p2_top.v  --  Practica 2: reloj/temporizador 000..999 con 4 entradas
 //  Sistemas Reconfigurables (V3737) - 2026B
 //  Tarjeta: Terasic DE10-Lite (MAX 10 10M50DAF484C7G), reloj de 50 MHz
 //  *** ESQUELETO DEL ALUMNO: completa los bloques marcados con TODO ***
@@ -27,13 +27,13 @@
 //    LEDR[2] = INC presionado LEDR[3] = DEC presionado  LEDR[9] = RESET activo
 //
 //  NO cambies la interfaz (nombres de modulo, parametros y puertos): el
-//  archivo de pines p3.qsf depende de ella. Conserva el nombre de la
+//  archivo de pines p2.qsf depende de ella. Conserva el nombre de la
 //  senal interna 'tick' (salida de tick_gen).
 //  Parametros: TICK_N (ciclos por segundo) y DEB_N (ciclos de antirrebote).
 //  Bajar TICK_N acelera la cuenta para probar las vueltas en la tarjeta.
 // =====================================================================
 `timescale 1ns/1ps
-module p3_top #(
+module p2_top #(
     parameter TICK_N = 50_000_000,    // 1 s a 50 MHz
     parameter DEB_N  = 1_000_000      // 20 ms a 50 MHz
 ) (

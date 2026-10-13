@@ -17,7 +17,7 @@ igual que en el TC05). Diagrama a bloques: `tc06-diagrama-bloques.pdf`.
 | Archivo | Contenido |
 |---|---|
 | `tc06_top.v` | Módulo de nivel superior: conecta todo y maneja HEX0–HEX5 y LEDR |
-| `tick_gen.v` | Divisor de frecuencia / *tick* parametrizable (`N`), con `en` y `clr` (los usa la Práctica 3) |
+| `tick_gen.v` | Divisor de frecuencia / *tick* parametrizable (`N`), con `en` y `clr` (los usa la Práctica 2) |
 | `contador_bcd.v` | Un dígito BCD 0–9 con habilitación `en` y acarreo `co` |
 | `dec7seg.v` | Decodificador BCD → 7 segmentos, activo en bajo, orden `{g,f,e,d,c,b,a}` |
 | `tc06.qpf`, `tc06.qsf`, `tc06.sdc` | Proyecto de Quartus con los pines de la DE10-Lite y el reloj de 50 MHz |

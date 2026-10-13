@@ -1,6 +1,6 @@
 // =====================================================================
 //  antirrebote.v  --  Sincronizador (2 FF) + filtro antirrebote
-//  Sistemas Reconfigurables (V3737) - 2026B - Practica 3
+//  Sistemas Reconfigurables (V3737) - 2026B - Practica 2
 //
 //  1) Sincronizador de dos flip-flops (FF): la entrada viene de un humano
 //     (boton o switch) y cambia cuando quiere, no al ritmo del reloj.

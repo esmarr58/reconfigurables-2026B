@@ -1,6 +1,6 @@
 // =====================================================================
 //  contador_bcd_ud.v  --  Digito BCD ascendente/descendente (up/down)
-//  Sistemas Reconfigurables (V3737) - 2026B - Practica 3
+//  Sistemas Reconfigurables (V3737) - 2026B - Practica 2
 //  *** ESQUELETO DEL ALUMNO: completa los bloques marcados con TODO ***
 //
 //  Es el contador_bcd del TC06 con tres cosas nuevas:

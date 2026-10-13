@@ -1,14 +1,14 @@
 // =====================================================================
 //  tick_gen.v  --  Generador de tick (divisor de frecuencia / prescaler)
-//  Sistemas Reconfigurables (V3737) - 2026B - TC06 y Practica 3
+//  Sistemas Reconfigurables (V3737) - 2026B - TC06 y Practica 2
 //  Tarjeta: Terasic DE10-Lite (MAX 10 10M50DAF484C7G), reloj de 50 MHz
 //
 //  Emite un pulso 'tick' de UN solo ciclo de reloj cada N ciclos.
 //    N = f_clk / f_tick  ->  1 Hz desde 50 MHz: N = 50_000_000
 //    Se compara contra N-1 (49_999_999) porque el conteo empieza en 0.
 //
-//  en  = 1 cuenta; en = 0 congela el conteo (la Practica 3 lo usa para PAUSA)
-//  clr = 1 regresa el conteo a 0 (sincrono; la Practica 3 lo usa con RESET)
+//  en  = 1 cuenta; en = 0 congela el conteo (la Practica 2 lo usa para PAUSA)
+//  clr = 1 regresa el conteo a 0 (sincrono; la Practica 2 lo usa con RESET)
 //  En el TC06 se conectan en = 1'b1 y clr = 1'b0.
 // =====================================================================
 `timescale 1ns/1ps

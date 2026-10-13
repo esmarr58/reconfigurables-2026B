@@ -1,6 +1,6 @@
 // =====================================================================
 //  dec7seg.v  --  Decodificador BCD -> 7 segmentos (DE10-Lite)
-//  Sistemas Reconfigurables (V3737) - 2026B - TC06 y Practica 3
+//  Sistemas Reconfigurables (V3737) - 2026B - TC06 y Practica 2
 //
 //  Los 6 displays de la DE10-Lite (HEX0..HEX5) son de ANODO COMUN:
 //  un segmento ENCIENDE con 0 (activo en bajo).

@@ -1,4 +1,4 @@
-# p3.sdc -- restricciones de tiempo (SDC: Synopsys Design Constraints)
+# p2.sdc -- restricciones de tiempo (SDC: Synopsys Design Constraints)
 # Reloj de 50 MHz de la DE10-Lite: periodo 20 ns.
 create_clock -name MAX10_CLK1_50 -period 20.000 [get_ports {MAX10_CLK1_50}]
 derive_clock_uncertainty

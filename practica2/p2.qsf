@@ -1,19 +1,19 @@
 # =====================================================================
-#  p3.qsf  --  Quartus Settings File de la Practica 3 (reloj 000..999)
+#  p2.qsf  --  Quartus Settings File de la Practica 2 (reloj 000..999)
 #  Tarjeta: Terasic DE10-Lite  |  FPGA: MAX 10 10M50DAF484C7G
 #  Pines tomados del DE10-Lite User Manual (Terasic, rev. 2017, cap. 3: tablas de asignacion de pines).
 #  Estandar de E/S: 3.3-V LVTTL (todos los perifericos de usuario usados).
 # =====================================================================
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M50DAF484C7G
-set_global_assignment -name TOP_LEVEL_ENTITY p3_top
-set_global_assignment -name VERILOG_FILE p3_top.v
+set_global_assignment -name TOP_LEVEL_ENTITY p2_top
+set_global_assignment -name VERILOG_FILE p2_top.v
 set_global_assignment -name VERILOG_FILE antirrebote.v
 set_global_assignment -name VERILOG_FILE detector_flanco.v
 set_global_assignment -name VERILOG_FILE contador_bcd_ud.v
 set_global_assignment -name VERILOG_FILE tick_gen.v
 set_global_assignment -name VERILOG_FILE dec7seg.v
-set_global_assignment -name SDC_FILE p3.sdc
+set_global_assignment -name SDC_FILE p2.sdc
 set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85

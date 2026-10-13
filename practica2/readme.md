@@ -1,14 +1,14 @@
-# Práctica 3 — Reloj 000–999 con PAUSA, RESET, INCREMENTO y DECREMENTO (kit del alumno)
+# Práctica 2 — Reloj 000–999 con PAUSA, RESET, INCREMENTO y DECREMENTO (kit del alumno)
 
 Sistemas Reconfigurables (V3737) · Ciclo 2026B · Dr. Rubén Estrada Marmolejo · CUCEI–UDG
 Práctica **semiguiada**, jueves 15 de octubre de 2026 (Semana 9): demostración en la tarjeta en clase
-y entrega del PDF ese mismo día a las 23:59. Sigue la guía de la Práctica 3 (PDF en Classroom).
+y entrega del PDF ese mismo día a las 23:59. Sigue la guía de la Práctica 2 (PDF en Classroom).
 Continúa el TC06 (carpeta `../tc6`).
 
 **Tarjeta:** Terasic DE10-Lite · FPGA (*Field-Programmable Gate Array*) MAX 10 `10M50DAF484C7G` ·
 reloj `MAX10_CLK1_50` (50 MHz).
 
-> Este es un **kit**, no la solución: `p3_top.v` y `contador_bcd_ud.v` son esqueletos con bloques
+> Este es un **kit**, no la solución: `p2_top.v` y `contador_bcd_ud.v` son esqueletos con bloques
 > `// TODO`. Tal como vienen **compilan** y la tarjeta muestra `000` fijo (y `LEDR1` parpadea cada
 > segundo). Tu trabajo es completar los TODO hasta que la tarjeta cumpla todas las reglas.
 
@@ -35,22 +35,22 @@ un **detector de flanco**. Salidas: `HEX2:HEX1:HEX0` = centenas, decenas, unidad
 
 | Archivo | Estado | Contenido |
 |---|---|---|
-| `p3_top.v` | **esqueleto (TODO 4–8)** | Nivel superior: POR, un antirrebote y un detector de ejemplo, displays y LEDs ya dados |
+| `p2_top.v` | **esqueleto (TODO 4–8)** | Nivel superior: POR, un antirrebote y un detector de ejemplo, displays y LEDs ya dados |
 | `contador_bcd_ud.v` | **esqueleto (TODO 1–3)** | Dígito BCD up/down con `clr`, acarreo `co` y préstamo `bo` |
 | `antirrebote.v` | completo | Sincronizador 2 FF + filtro antirrebote parametrizable (`N`) |
 | `detector_flanco.v` | completo | Pulso de un ciclo en el flanco 0→1 |
 | `tick_gen.v`, `dec7seg.v` | completos | Los mismos del TC06 |
-| `p3.qpf`, `p3.qsf`, `p3.sdc` | completos | Proyecto de Quartus con los pines de la DE10-Lite y el reloj de 50 MHz |
-| `p3-diagrama-bloques.pdf` | — | Diagrama a bloques de la solución que debes construir |
+| `p2.qpf`, `p2.qsf`, `p2.sdc` | completos | Proyecto de Quartus con los pines de la DE10-Lite y el reloj de 50 MHz |
+| `p2-diagrama-bloques.pdf` | — | Diagrama a bloques de la solución que debes construir |
 
-**No cambies** el nombre del módulo `p3_top`, sus parámetros (`TICK_N`, `DEB_N`) ni sus puertos: el
+**No cambies** el nombre del módulo `p2_top`, sus parámetros (`TICK_N`, `DEB_N`) ni sus puertos: el
 `.qsf` depende de ellos.
 
 ## Compilar y programar (Quartus Prime Lite)
 
-1. Descarga la carpeta completa a una ruta sin espacios ni acentos (por ejemplo `C:\fpga\practica3`).
-2. `File > Open Project…` → `p3.qpf` → `Processing > Start Compilation`.
-3. `Tools > Programmer` → *USB-Blaster* → `output_files/p3.sof` → *Start*.
+1. Descarga la carpeta completa a una ruta sin espacios ni acentos (por ejemplo `C:\fpga\practica2`).
+2. `File > Open Project…` → `p2.qpf` → `Processing > Start Compilation`.
+3. `Tools > Programmer` → *USB-Blaster* → `output_files/p2.sof` → *Start*.
 4. Revisa el reporte (*Flow Summary*: elementos lógicos y registros; *Timing Analyzer*: Fmax) y el
    *RTL Viewer* (`Tools > Netlist Viewers`).
 
