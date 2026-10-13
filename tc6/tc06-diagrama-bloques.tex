@@ -1,0 +1,64 @@
+% Diagrama a bloques del TC06 (Reconfigurables V3737, 2026B): contador 00..99
+% Tarjeta Terasic DE10-Lite (MAX 10). Compilar: pdflatex tc06-diagrama-bloques.tex
+\documentclass[border=8pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, calc, fit, backgrounds}
+
+\definecolor{senal}{HTML}{2A5CAA}
+\definecolor{emite}{HTML}{C9601F}
+\definecolor{alerta}{HTML}{B23A34}
+\definecolor{confirma}{HTML}{3E7C59}
+\definecolor{tinta}{HTML}{1C1F24}
+\definecolor{regla}{HTML}{D8DBE0}
+
+\begin{document}
+\begin{tikzpicture}[
+  font=\sffamily\small, >=Latex, node distance=9mm and 12mm,
+  blk/.style={draw=senal, line width=1pt, fill=senal!7, rounded corners=3pt,
+              minimum width=30mm, minimum height=13mm, align=center, text=tinta},
+  comb/.style={blk, draw=emite, fill=emite!8},
+  pin/.style={draw=tinta, fill=white, font=\scriptsize\ttfamily, inner sep=2pt},
+  sig/.style={font=\scriptsize\ttfamily, text=tinta},
+  w/.style={->, line width=0.9pt, draw=tinta},
+  bus/.style={->, line width=1.6pt, draw=tinta},
+]
+  % --- bloques ---
+  \node[blk] (tick) {\textbf{tick\_gen}\\[-1pt]{\scriptsize N = 50\,000\,000}\\[-1pt]{\scriptsize 1 pulso / s}};
+  \node[blk, right=18mm of tick] (u) {\textbf{contador\_bcd}\\[-1pt]{\scriptsize unidades (0..9)}};
+  \node[blk, below=16mm of u] (d) {\textbf{contador\_bcd}\\[-1pt]{\scriptsize decenas (0..9)}};
+  \node[comb, right=18mm of u] (su) {\textbf{dec7seg}\\[-1pt]{\scriptsize BCD $\rightarrow$ 7 seg}};
+  \node[comb, right=18mm of d] (sd) {\textbf{dec7seg}\\[-1pt]{\scriptsize BCD $\rightarrow$ 7 seg}};
+
+  % --- pines de la tarjeta ---
+  \node[pin, left=14mm of tick, yshift=3mm] (clk) {MAX10\_CLK1\_50 · PIN\_P11};
+  \node[pin, below=10mm of clk] (key) {KEY[0] · PIN\_B8 (reset)};
+  \node[pin, right=12mm of su] (h0) {HEX0[7:0]};
+  \node[pin, right=12mm of sd] (h1) {HEX1[7:0]};
+  \node[pin, below=8mm of h1] (led) {LEDR[7:0], LEDR[9]};
+
+  % --- conexiones ---
+  \draw[w] (clk.east) -- ++(4mm,0) |- ([yshift=3mm]tick.west);
+  \draw[w, alerta] (key.east) -- ++(6mm,0) |- ([yshift=-3mm]tick.west)
+        node[pos=0.25, left, sig, text=alerta] {rst\_n};
+  \draw[w] (tick.east) -- (u.west) node[midway, above, sig] {tick} node[midway, below, sig] {en};
+  \draw[w, confirma] (u.south) -- (d.north) node[midway, right, sig, text=confirma] {co $\rightarrow$ en}
+        node[midway, left, font=\scriptsize, text=confirma, align=right] {acarreo\\9$\rightarrow$0};
+  \draw[bus] (u.east) -- (su.west) node[midway, above, sig] {unidades[3:0]};
+  \draw[bus] (d.east) -- (sd.west) node[midway, above, sig] {decenas[3:0]};
+  \draw[bus] (su.east) -- (h0.west) node[midway, above, sig] {\{1,seg\}};
+  \draw[bus] (sd.east) -- (h1.west) node[midway, above, sig] {\{1,seg\}};
+  \draw[w] ($(d.south)+(-6mm,0)$) |- (led.west) node[pos=0.75, above, sig] {BCD en binario};
+
+  % --- marco del top ---
+  \begin{scope}[on background layer]
+    \node[draw=regla, line width=1pt, dashed, rounded corners=6pt, inner sep=6mm,
+          fit=(tick)(u)(d)(su)(sd), label={[font=\sffamily\bfseries, text=senal]above:tc06\_top}] {};
+  \end{scope}
+  \node[below=21mm of d, font=\scriptsize, text=tinta, align=center] {%
+    Azul: lógica secuencial (registros con \texttt{posedge clk}) \quad
+    Naranja: lógica combinacional \quad Displays de ánodo común: 0 = segmento encendido. HEX2--HEX5 apagados.};
+\end{tikzpicture}
+\end{document}
