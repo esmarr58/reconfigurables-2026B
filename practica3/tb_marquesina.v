@@ -180,4 +180,10 @@ module tb_marquesina;
         $display("FAIL: tiempo agotado");
         $finish;
     end
+
+    // Cronograma para GTKWave (Icarus Verilog). En Questa no estorba: solo genera p3.vcd.
+    initial begin
+        $dumpfile("p3.vcd");
+        $dumpvars;   // todas las senales, todos los niveles
+    end
 endmodule

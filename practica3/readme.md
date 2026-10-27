@@ -72,6 +72,21 @@ señales internas `tick`, `dir`, `r` y `ventana`: el testbench y el `.qsf` depen
    Si sale `FAIL`, lee el primer `ERROR`: dice qué prueba, cuándo y qué esperaba.
    Con el kit sin completar el testbench da `FAIL` (faltan velocidades y letras): es lo esperado.
 
+### Si Questa / ModelSim no abre (licencia)
+
+Se acepta **Icarus Verilog + GTKWave** con el mismo testbench (instalador de Windows en
+<https://bleyer.org/icarus/>, incluye GTKWave). En una consola (`cmd`), dentro de tu carpeta `p3_tucódigo`:
+
+```
+echo P3 ApellidoNombre CODIGO
+iverilog -o p3 sincronizador.v antirrebote.v detector_flanco.v divisor_tick.v registro_marquesina.v char_a_7seg.v marquesina_top.v tb_marquesina.v
+vvp p3
+gtkwave p3.vcd
+```
+
+La consola de `vvp` hace de *Transcript* (captura con la ruta del prompt, tu `echo` y el `PASS`). El testbench ya
+escribe `p3.vcd`: en GTKWave agrega `tick`, `dir` y `ventana` (clic derecho → *Data Format* → *ASCII*).
+
 ## Compilar y programar (Quartus Prime Lite)
 
 1. `File > Open Project…` → `p3.qpf` → `Processing > Start Compilation` (0 errores; los avisos de
