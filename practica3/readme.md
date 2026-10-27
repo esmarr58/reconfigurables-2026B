@@ -1,10 +1,11 @@
 # Práctica 3 — Marquesina con tu nombre en HEX5..HEX0 (kit del alumno)
 
 Sistemas Reconfigurables (V3737) · Ciclo 2026B · Dr. Rubén Estrada Marmolejo · CUCEI–UDG
-Práctica **guiada** con **simulación obligatoria en ModelSim/Questa**: trabajo guiado el jueves 22 de
-octubre de 2026 (Sesión 19); demostración en la tarjeta y entrega del PDF el martes 27 de octubre de 2026
-(Sesión 20) a las 23:59. Sigue la guía `Practica3-Marquesina-Guia` y llena el documento de evidencia
-`Practica3-Marquesina-Evidencia.docx` (los dos en Classroom). Teoría: deck de la Clase 18
+Práctica **guiada** con **simulación obligatoria en ModelSim/Questa**: teoría y planteamiento el martes 27 de
+octubre de 2026 (Sesión 20); trabajo guiado el jueves 29 de octubre (Sesión 21); demostración en la tarjeta y
+entrega del PDF el martes 3 de noviembre de 2026 (Sesión 22) a las 23:59. Sigue la guía
+`Practica3-Marquesina-Guia-v4` y llena el documento de evidencia `Practica3-Marquesina-Evidencia-v2.docx`
+(los dos en Classroom). Teoría: deck de la Clase 18
 (*Marquesina en los seis displays: registros de desplazamiento*). Continúa la Práctica 2 (carpeta `../practica2`).
 
 **Tarjeta:** Terasic DE10-Lite · FPGA MAX 10 `10M50DAF484C7G` · reloj `MAX10_CLK1_50` (50 MHz) · displays de
