@@ -1,0 +1,95 @@
+% Diagrama a bloques de la Practica 3 (Reconfigurables V3737, 2026B):
+% marquesina con el nombre del alumno en HEX5..HEX0. Tarjeta DE10-Lite.
+% Compilar: pdflatex p3-diagrama-bloques.tex
+\documentclass[border=8pt]{standalone}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noshorthands]{babel}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, calc, fit, backgrounds}
+
+\definecolor{senal}{HTML}{2A5CAA}
+\definecolor{emite}{HTML}{C9601F}
+\definecolor{alerta}{HTML}{B23A34}
+\definecolor{confirma}{HTML}{3E7C59}
+\definecolor{detecta}{HTML}{6B4C9A}
+\definecolor{tinta}{HTML}{1C1F24}
+\definecolor{regla}{HTML}{D8DBE0}
+
+\begin{document}
+\begin{tikzpicture}[
+  font=\sffamily\small, >=Latex,
+  blk/.style={draw=senal, line width=1pt, fill=senal!7, rounded corners=3pt,
+              minimum width=27mm, minimum height=11mm, align=center, text=tinta},
+  inb/.style={blk, draw=detecta, fill=detecta!8, minimum width=24mm},
+  comb/.style={blk, draw=emite, fill=emite!8, minimum width=20mm},
+  pin/.style={draw=tinta, fill=white, font=\scriptsize\ttfamily, inner sep=2pt, align=left},
+  sig/.style={font=\scriptsize\ttfamily, text=tinta},
+  w/.style={->, line width=0.9pt, draw=tinta},
+  bus/.style={->, line width=1.6pt, draw=tinta},
+]
+  % ---------------- pines de entrada ----------------
+  \node[pin] (clk) at (0, 3.4)  {MAX10\_CLK1\_50\\PIN\_P11 (50 MHz)};
+  \node[pin] (k0)  at (0, 2.1)  {KEY[0] · PIN\_B8\\RESET (activo en bajo)};
+  \node[pin] (sw)  at (0,-0.2)  {SW[0] · C10 DIRECCIÓN\\SW[2:1] · D12 C11\\VELOCIDAD};
+  \node[pin] (k1)  at (0,-3.0)  {KEY[1] · PIN\_A7\\PAUSA (alterna)};
+
+  % ---------------- acondicionamiento ----------------
+  \node[inb] (sync) at (4.4,-0.2)  {\textbf{sincronizador}\\{\scriptsize 2 FF · W = 3}};
+  \node[inb] (db)   at (4.4,-3.0)  {\textbf{antirrebote}\\{\scriptsize 2 FF + 20 ms}};
+  \node[inb] (fl)   at (7.9,-3.0)  {\textbf{detector\_}\\\textbf{flanco}};
+  \node[blk, minimum width=18mm] (tg) at (11.4,-3.0) {\textbf{pausa}\\{\scriptsize FF que alterna}};
+
+  \draw[w] (sw.east) -- (sync.west);
+  \draw[w] (k1.east) -- (db.west) node[midway, above, sig] {\textasciitilde KEY[1]};
+  \draw[w] (db.east) -- (fl.west) node[midway, above, sig] {k1};
+  \draw[w] (fl.east) -- (tg.west) node[midway, above, sig] {k1\_p};
+
+  % ---------------- velocidad y base de tiempo ----------------
+  \node[comb, minimum width=22mm] (mux) at (7.9,-0.2) {\textbf{MUX de}\\\textbf{velocidad}};
+  \node[blk] (div) at (11.4,-0.2) {\textbf{divisor\_tick}\\{\scriptsize cnt $\geq$ limite}};
+  \draw[w] ([yshift=-3mm]sync.east) -- ([yshift=-3mm]mux.west) node[midway, below, sig] {nivel};
+  \draw[w] (mux.east) -- (div.west) node[midway, above, sig] {limite};
+  \node[sig, align=left, anchor=north] at ([yshift=-1mm]mux.south) {00: 8·N\_BASE$-$1 (lenta)\\11: \phantom{8·}N\_BASE$-$1 (rápida)};
+  \draw[w] (clk.east) -| (div.north);
+  \draw[w] (tg.north) -- (div.south) node[midway, right, sig] {en = \textasciitilde pausa};
+
+  % ---------------- registro y ventana ----------------
+  \node[blk, minimum width=34mm, minimum height=16mm] (reg) at (15.8,-0.2)
+       {\textbf{registro\_marquesina}\\{\scriptsize LEN × 8 bits (ASCII), circular}\\{\scriptsize rst\_n carga MSG}};
+  \draw[w] (div.east) -- (reg.west) node[midway, above, sig] {tick};
+  \draw[w, detecta] ([yshift=3mm]sync.east) -- ++(0.7,0) |- (9.6,1.5) -| ([xshift=-8mm]reg.north)
+        node[pos=0.25, above, sig, text=detecta] {dir = SW[0]};
+  \draw[w, alerta] (k0.east) -- (16.6,2.1) -- ([xshift=8mm]reg.north);
+  \node[sig, text=alerta, above right] at (2.3,2.1) {rst\_n = KEY[0] (reset asíncrono de todos los bloques)};
+
+  \node[comb, minimum width=24mm] (ven) at (15.8,-3.0) {\textbf{ventana}\\{\scriptsize r[8·LEN$-$1 -: 48]}};
+  \draw[bus] (reg.south) -- (ven.north) node[midway, right, sig] {r};
+
+  % ---------------- decodificadores ----------------
+  \foreach \k/\y in {5/2.4, 4/1.2, 3/0.0, 2/-1.2, 1/-2.4, 0/-3.6} {
+    \node[comb, minimum width=22mm, minimum height=8mm] (d\k) at (21.4,\y) {\textbf{char\_a\_7seg}};
+    \node[pin, right=5mm of d\k] (h\k) {HEX\k};
+    \draw[bus] (d\k.east) -- (h\k.west);
+  }
+  \draw[bus] (ven.east) -- ++(0.8,0) coordinate (bb);
+  \draw[line width=1.6pt, tinta] (bb) -- ($(bb |- d5.west)$);
+  \draw[line width=1.6pt, tinta] (bb) -- ($(bb |- d0.west)$);
+  \foreach \k in {5,4,3,2,1,0} { \draw[w] ($(bb |- d\k.west)$) -- (d\k.west); }
+  \node[sig, right] at ($(bb |- d5.west)+(0,0.28)$) {[47:40]};
+  \node[sig, right] at ($(bb |- d0.west)+(0,-0.28)$) {[7:0]};
+
+  \node[pin, anchor=north east] (leds) at ($(h0.south east)+(0,-0.7)$)
+       {LEDR9 pausa · LEDR[2:1] velocidad\\LEDR0 dirección};
+
+  \begin{scope}[on background layer]
+    \node[draw=regla, line width=1pt, dashed, rounded corners=6pt, inner sep=5mm,
+          fit=(sync)(db)(tg)(div)(reg)(ven)(d5)(d0)(mux),
+          label={[font=\sffamily\bfseries, text=senal]above:marquesina\_top}] {};
+  \end{scope}
+  \node[font=\scriptsize, text=tinta, align=center] at (11.2,-5.4) {%
+    Morado: acondicionamiento de entradas \quad Azul: secuencial \quad Naranja: combinacional\\
+    Un solo reloj: \texttt{tick} es una HABILITACIÓN de un ciclo, no un reloj. \quad
+    Cada carácter son 8 bits ASCII (\texttt{"R"} = 8\textquotesingle{}h52); el primero va en los bits altos y se ve en HEX5.};
+\end{tikzpicture}
+\end{document}
